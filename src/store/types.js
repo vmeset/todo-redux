@@ -8,3 +8,10 @@ export const SHOW_LOADER = "SHOW_LOADER"
 export const TOGGLE_NOTE = "TOGGLE_NOTE"
 export const SORT_NOTES = "SORT_NOTES"
 export const SET_SEARCH_VAL = "SET_SEARCH_VAL"
+
+export const LOGIN_ROUTE = "/login"
+export const TODO_ROUTE = "/main"
+export const TOBUY_ROUTE = "/tobuy"
+export const DONE_ROUTE = "/done"
+
+export const SET_USER = "SET_USER"

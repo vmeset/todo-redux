@@ -41,7 +41,7 @@ const Notes = ({notes, searchVal}) => {
             </div>
             <TransitionGroup component="ul" className="list-group">
                 {notes.filter(val => {
-                    if (searchVal == "") {
+                    if (searchVal === "") {
                         return val
                     } else if (val.title.toLowerCase().includes(searchVal.toLowerCase())) {
                         return val

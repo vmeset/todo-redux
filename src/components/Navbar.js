@@ -5,8 +5,12 @@ import { setSearchValAction } from '../store/notesReducer';
 
 const Navbar = () => {
 
-    const searchVal = useSelector(state => state.notes.searchVal)
+    // const searchVal = useSelector(state => state.notes.searchVal)
+    const login = useSelector(state => state.login)
+    const user = login.auth.currentUser
     const dispatch = useDispatch()
+
+    // const user = true
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,6 +35,13 @@ const Navbar = () => {
                     <input type="text" placeholder={"поиск по заметкам"} className="form-control-sm border light col-sm-8"
                         onChange={(e) => dispatch(setSearchValAction(e.target.value))}/>
                 </form>
+                {user 
+                    ? <button onClick={() => login.auth.signOut()}>Sign OUT</button>
+                    : <div>
+                        <button>Sign IN</button>
+                        <button>Sign UP</button>
+                    </div>
+                }
             </div>
         </nav>
     );
