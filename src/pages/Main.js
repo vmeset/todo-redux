@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
-import { showLoaderAction } from '../store/notesReducer';
-import { fetchNotes } from '../store/api';
+import { useSelector } from 'react-redux';
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 import Form from '../components/Form';
 import Notes from '../components/Notes';
@@ -12,14 +11,11 @@ import Alert from '../components/Alert';
 const Main = () => {
 
     const notes = useSelector(state => state.notes)
-    const dispatch = useDispatch()
+    const {auth} = useSelector(state => state.login)
+    const [user] = useAuthState(auth)
 
-    useEffect( () => {
-        dispatch(showLoaderAction())
-        dispatch(fetchNotes())
-    }, [dispatch] )
-
-    const inCompleteNotes = notes.notes.filter(note => !note.completed)
+    const userNotes = notes.notes.filter(note => note.uid === user.uid)
+    const inCompleteNotes = userNotes.filter(note => !note.completed && note.category === "/main")
 
     return (
         <div className="container mt-3">
@@ -31,7 +27,6 @@ const Main = () => {
                 ? <Loader />
                 : <Notes notes={inCompleteNotes} searchVal={notes.searchVal} />
             }
-            
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase/app'
-import { setUserAction } from '../store/loginReducer';
+import { addUser } from '../store/api';
 
 const Login = () => {
     
@@ -11,8 +11,7 @@ const Login = () => {
     const login = async () => {
         const provider = new firebase.auth.GoogleAuthProvider()
         const {user} = await auth.signInWithPopup(provider)
-        dispatch(setUserAction(user))
-        console.log(user)
+        dispatch(addUser(user))
     }
 
     return (

@@ -1,19 +1,24 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-import AppRouter from './components/AppRouter';
+import { showLoaderAction } from './store/notesReducer';
+import { fetchNotes } from './store/api';
 
+import AppRouter from './components/AppRouter';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
-// import Buy from './pages/Buy';
-// import Done from './pages/Done';
-// import Main from './pages/Main';
 
 const App = () => {
 
   const {auth} = useSelector(state => state.login)
   const [user, loading, error] = useAuthState(auth)
+  const dispatch = useDispatch()
+
+  useEffect( () => {
+    dispatch(showLoaderAction())
+    dispatch(fetchNotes())
+  }, [dispatch] )
   
   if (loading) {
     return <Loader />
@@ -22,12 +27,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <AppRouter />
-      {/* <Switch>
-        <Route exact path="/" component={Main} />
-        <Route path="/done" component={Main} />
-        <Route path="/buy" component={Main} />
-      </Switch> */}
+      <AppRouter  />
     </div>
   );
 };

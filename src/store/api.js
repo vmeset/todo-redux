@@ -1,5 +1,6 @@
 import axios from "axios"
 import { addNoteAction, deleteNoteAction, fetchNotesAction, toggleNoteAction } from "./notesReducer"
+import { setUserAction } from './loginReducer'
 
 const url = process.env.REACT_APP_DB_URL
 
@@ -20,8 +21,7 @@ export const addNote = (payload) => {
         const res = await axios.post(`${url}/notes.json`, payload)
         const note = {
             ...payload,
-            id: res.data.name,
-            completed: false
+            id: res.data.name
         }
         dispatch(addNoteAction(note))
     }
@@ -45,5 +45,27 @@ export const toggleNote = (note) => {
         await axios.patch(`${url}/notes/${note.id}.json`, toggledNote)
 
         dispatch(toggleNoteAction(note))
+    }
+}
+
+export const addUser = (payload) => {
+    return async dispatch => {
+
+        const users = await axios(`${url}/users.json`)
+        const usersArray = Object.keys(users.data).map(key => {
+            return {
+                ...users.data[key],
+                id: key
+            }
+        })
+        
+        const tempo = usersArray.find(user => user.uid === payload.uid)
+
+        if (!tempo) {
+            await axios.post(`${url}/users.json`, payload)
+            dispatch(setUserAction(tempo))
+        } else {
+            dispatch(setUserAction(tempo))
+        }       
     }
 }

@@ -15,12 +15,10 @@ firebase.initializeApp({
   });
 
 const initialState = {
-    user: false,
+    // user: false,
     auth: firebase.auth(),
     firestore: firebase.firestore()
 }
-
-
 
 export const loginReducer = (state = initialState, action) => {
     switch (action.type) {

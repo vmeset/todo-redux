@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
 import { setSearchValAction } from '../store/notesReducer';
 
 const Navbar = () => {
@@ -8,9 +9,8 @@ const Navbar = () => {
     // const searchVal = useSelector(state => state.notes.searchVal)
     const login = useSelector(state => state.login)
     const user = login.auth.currentUser
+    console.log("navbar", user)
     const dispatch = useDispatch()
-
-    // const user = true
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,6 +30,7 @@ const Navbar = () => {
                         <NavLink to='buy' className="nav-link">Buy</NavLink>
                     </li>
                 </ul>
+                {/* <div>{user.id}</div> */}
                 <form className="form-inline my-2 my-lg-0">
                     {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
                     <input type="text" placeholder={"поиск по заметкам"} className="form-control-sm border light col-sm-8"
@@ -38,8 +39,12 @@ const Navbar = () => {
                 {user 
                     ? <button onClick={() => login.auth.signOut()}>Sign OUT</button>
                     : <div>
-                        <button>Sign IN</button>
-                        <button>Sign UP</button>
+                        <NavLink to='/login'>
+                            <button>Sign IN</button>
+                        </NavLink>
+                        <NavLink to='/login'>
+                            <button>Create account</button>
+                        </NavLink>
                     </div>
                 }
             </div>

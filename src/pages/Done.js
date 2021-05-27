@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 import Notes from '../components/Notes';
 import Loader from '../components/Loader'
@@ -8,7 +9,10 @@ import Alert from '../components/Alert';
 const Done = () => {
 
     const notes = useSelector(state => state.notes)
-    const completedNotes = notes.notes.filter(note => note.completed)
+    const {auth} = useSelector(state => state.login)
+    const [user] = useAuthState(auth)
+    const userNotes = notes.notes.filter(note => note.uid === user.uid)
+    const completedNotes = userNotes.filter(note => note.completed && note.category === "/main")
 
     return (
         <div className="container mt-3">

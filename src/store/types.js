@@ -11,7 +11,7 @@ export const SET_SEARCH_VAL = "SET_SEARCH_VAL"
 
 export const LOGIN_ROUTE = "/login"
 export const TODO_ROUTE = "/main"
-export const TOBUY_ROUTE = "/tobuy"
+export const TOBUY_ROUTE = "/buy"
 export const DONE_ROUTE = "/done"
 
 export const SET_USER = "SET_USER"

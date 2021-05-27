@@ -26,7 +26,7 @@ const Notes = ({notes, searchVal}) => {
                 <span>Сортировка</span>
                 <button className="btn btn-light btn-sm ml-4 mr-4"
                         onClick={() => {
-                            onSort("title")
+                           onSort("title")
                         }}
                 >
                     по имени
