@@ -27,16 +27,15 @@ const Form = () => {
                 category: pathname
             }
             dispatch(addNote(note))
-            console.log(note)
         } else {
             dispatch(showAlertAction({text: `Необходимо ввести название заметки`, type: 'warning'}))
         }
     }
 
     return (
-        <form onSubmit={event => formSubmit(event)}>
+        <form className="form" onSubmit={event => formSubmit(event)}>
             <input 
-                className="form-control form-control-lg" type="text" 
+                type="text" 
                 placeholder="Введите название для новой заметки"
                 value={value}
                 onChange={e => setValue(e.target.value)}

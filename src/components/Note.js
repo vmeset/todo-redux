@@ -11,19 +11,19 @@ const Note = ({note}) => {
 
     const formatDate = (date) => {
         return (
-            moment(date).format("h:mm, DD.MM.YYYY")
+            moment(date).format("DD.MM")
         )
     }
 
     return (
-        <li className="list-group-item note">
+        <li className="note">
             <div>
                 <strong>{note.title}</strong>
             </div>
             <div>
                 <small>{formatDate(note.date)}</small>
                 <button type="button" 
-                        className="btn btn-outline-danger btn-sm btn-sm ml-4 mr-4"
+                        className="btn"
                         onClick={() => (
                             dispatch(deleteNote(note.id)
                         ))}
@@ -32,7 +32,7 @@ const Note = ({note}) => {
                 </button>
                 <button
                     type="button"
-                    className="btn btn-outline-success btn-sm"
+                    className="btn"
                     onClick={() => {
                         dispatch(toggleNote(note))
                     }}

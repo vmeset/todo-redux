@@ -15,13 +15,12 @@ const Main = () => {
     const [user] = useAuthState(auth)
 
     const userNotes = notes.notes.filter(note => note.uid === user.uid)
-    console.log(userNotes)
     const buyNotes = userNotes.filter(note => !note.completed && note.category === "/buy")
 
     return (
-        <div className="container mt-3">
+        <div className="container">
             <Alert />
-            <h2>Список задач</h2>
+            <h2>Список покупок</h2>
             <Form />
             <hr />
             {notes.loading

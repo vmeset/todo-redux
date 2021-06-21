@@ -18,7 +18,7 @@ const Main = () => {
     const inCompleteNotes = userNotes.filter(note => !note.completed && note.category === "/main")
 
     return (
-        <div className="container mt-3">
+        <div className="container">
             <Alert />
             <h2>Список задач</h2>
             <Form />

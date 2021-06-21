@@ -15,7 +15,6 @@ firebase.initializeApp({
   });
 
 const initialState = {
-    // user: false,
     auth: firebase.auth(),
     firestore: firebase.firestore()
 }
@@ -23,7 +22,7 @@ const initialState = {
 export const loginReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER: {
-            return {...state, user: action.payload}
+            return {...state, ...state.auth, currentUser: action.payload}
         }
         default: return state
     }

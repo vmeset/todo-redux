@@ -25,7 +25,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="app-wrapper">
       <Navbar />
       <AppRouter  />
     </div>

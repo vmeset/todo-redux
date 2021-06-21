@@ -1,52 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { setSearchValAction } from '../store/notesReducer';
-
 const Navbar = () => {
 
-    // const searchVal = useSelector(state => state.notes.searchVal)
     const login = useSelector(state => state.login)
     const user = login.auth.currentUser
-    console.log("navbar", user)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
+
+    const [isActive, setActive] = useState(false);
+
+    const toggleClass = () => {
+        setActive(!isActive);
+    }
+
+    const logout = () => {
+        login.auth.signOut()
+        toggleClass()
+    }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <NavLink to='/' className="navbar-brand">Note App</NavLink>
-                <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li className="nav-item active">
-                        <NavLink to='/' className="nav-link">Main <span className="sr-only">(current)</span></NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to='done' className="nav-link">Done</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to='buy' className="nav-link">Buy</NavLink>
-                    </li>
-                </ul>
-                {/* <div>{user.id}</div> */}
-                <form className="form-inline my-2 my-lg-0">
-                    {/* <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
-                    <input type="text" placeholder={"поиск по заметкам"} className="form-control-sm border light col-sm-8"
-                        onChange={(e) => dispatch(setSearchValAction(e.target.value))}/>
-                </form>
-                {user 
-                    ? <button onClick={() => login.auth.signOut()}>Sign OUT</button>
-                    : <div>
-                        <NavLink to='/login'>
-                            <button>Sign IN</button>
-                        </NavLink>
-                        <NavLink to='/login'>
-                            <button>Create account</button>
-                        </NavLink>
+        <nav className="navbar">
+            {user 
+                ? <div className="navbar-brand">
+                    <div>
+                        <img src={user.photoURL || "https://cdn1.iconfinder.com/data/icons/social-black-buttons/512/anonymous-512.png"} width="30" height="30"
+                        />
                     </div>
-                }
+                    <div>
+                        <span className="brand-title">
+                            {user.displayName || "Guest notes"}
+                        </span>
+                    </div> 
+                </div>
+                : <div className="navbar-brand">
+                    Note App
+                </div>
+            }
+            <div className="toggle-button-block">
+                <NavLink className="toggle-button" to="./" onClick={toggleClass} >
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                </NavLink>
+            </div>
+            <div className={isActive ? 'nav-links active-menu': 'nav-links'}>
+                <ul>
+                    <li>
+                        <NavLink onClick={toggleClass} to="/">Main</NavLink>
+                    </li>
+                    <li>
+                        <NavLink onClick={toggleClass} to='done'>Done</NavLink>
+                    </li>
+                    <li>
+                        <NavLink onClick={toggleClass} to='buy'>Buy</NavLink>
+                    </li>
+                    {user 
+                        ? <button className="btn-logout" onClick={logout}>Sign OUT</button>
+                        : <span>
+                            {/* <NavLink to='login'>Login</NavLink> */}
+                        </span>
+                    }
+                </ul>
             </div>
         </nav>
     );

@@ -15,9 +15,9 @@ const Done = () => {
     const completedNotes = userNotes.filter(note => note.completed && note.category === "/main")
 
     return (
-        <div className="container mt-3">
+        <div className="container">
             <Alert />
-            <h2>Список задач</h2>
+            <h2>Выполненные задачи</h2>
             <hr />
             {notes.loading
                 ? <Loader />
